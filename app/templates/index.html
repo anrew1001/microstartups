@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Список стартапов</h1>
+  {% if startups %}
+    <ul>
+      {% for startup in startups %}
+        <li>
+          {% if startup.logo and not request.environ.get('RENDER') %}
+            <!-- Отображаем логотипы только локально -->
+            <p>Logo path: {{ url_for('static', filename='uploads/' + startup.logo) }}</p>
+            <p>Full file path (server-side): {{ startup.logo }}</p>
+            <img src="{{ url_for('static', filename='uploads/' + startup.logo) }}" alt="Logo" style="max-width: 200px; border: 1px solid black;" onerror="this.onerror=null; this.src='/static/placeholder.png'; console.log('Image load failed for: ' + this.src);">
+          {% else %}
+            <p>Логотип недоступен на Render (требуется облачное хранилище)</p>
+          {% endif %}
+          {{ startup.name }} - {{ startup.description }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Пока нет стартапов.</p>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Результаты поиска</h1>
+  {% if startups %}
+    <ul>
+      {% for startup in startups %}
+        <li>
+          {% if startup.logo %}
+            <img src="{{ url_for('static', filename='uploads/' + startup.logo) }}" alt="Logo" style="max-width: 200px; border: 1px solid black;">
+          {% else %}
+            <p>Нет логотипа</p>
+          {% endif %}
+          {{ startup.name }} - {{ startup.description }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Ничего не найдено.</p>
+  {% endif %}
+{% endblock %}

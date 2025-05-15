@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MicroStartups</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{{ url_for('routes.index') }}">MicroStartups</a>
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" href="{{ url_for('routes.index') }}">Главная</a>
+            {% if current_user.is_authenticated %}
+                <a class="nav-item nav-link" href="{{ url_for('routes.startup_form') }}">Добавить стартап</a>
+                <a class="nav-item nav-link" href="{{ url_for('routes.logout') }}">Выйти</a>
+            {% else %}
+                <a class="nav-item nav-link" href="{{ url_for('routes.login') }}">Войти</a>
+                <a class="nav-item nav-link" href="{{ url_for('routes.register') }}">Регистрация</a>
+            {% endif %}
+        </div>
+        <form class="form-inline my-2 my-lg-0" method="GET" action="{{ url_for('routes.search') }}" onsubmit="return this.query.value.trim() !== '';">
+            <input class="form-control mr-sm-2" type="search" name="query" placeholder="Поиск..." aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
+        </form>
+    </nav>
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
