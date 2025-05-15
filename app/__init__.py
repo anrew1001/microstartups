@@ -2,7 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_restful import Api
-from config import Config
+from .config import Config  # Ensure correct import
 
 db = SQLAlchemy()
 login_manager = LoginManager()
@@ -33,3 +33,6 @@ def create_app():
             print(f"{rule.endpoint}: {rule.rule}")
 
     return app
+
+# Export the app for Gunicorn
+app = create_app()
