@@ -80,7 +80,6 @@ def startup_form():
             return redirect(url_for('routes.startup_form'))
         logo = request.files['logo']
         logo_filename = None
-        # Используем /tmp для Render
         upload_folder = os.environ.get('UPLOAD_FOLDER', '/tmp') if os.environ.get('RENDER') else current_app.config['UPLOAD_FOLDER']
         if not os.path.exists(upload_folder):
             os.makedirs(upload_folder, exist_ok=True)
