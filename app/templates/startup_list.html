@@ -7,7 +7,8 @@
       {% for startup in startups %}
         <li>
           {% if startup.logo %}
-            <img src="{{ url_for('static', filename='uploads/' + startup.logo) }}" alt="Logo" style="max-width: 200px; border: 1px solid black;">
+                <img src="{{ url_for('static', filename='uploads/logo.png') }}" alt="Startup Logo">
+<!--            <img src="{{ url_for('static', filename='uploads/' + startup.logo) }}" alt="Logo" style="max-width: 200px; border: 1px solid black;">-->
           {% else %}
             <p>Нет логотипа</p>
           {% endif %}
